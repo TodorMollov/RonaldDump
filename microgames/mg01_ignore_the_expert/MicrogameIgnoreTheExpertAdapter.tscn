@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtk8nap3n7wql"]
+
+[ext_resource type="Script" path="res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpertAdapter.gd" id="1_adapter"]
+
+[node name="MicrogameIgnoreTheExpertAdapter" type="Node2D"]
+script = ExtResource("1_adapter")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1

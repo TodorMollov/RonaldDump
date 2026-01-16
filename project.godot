@@ -1,0 +1,65 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="RonaldDump"
+run/main_scene="res://scenes/boot.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+
+[autoload]
+
+InputRouter="*res://autoload/input_router.gd"
+GlobalTimingController="*res://autoload/global_timing_controller.gd"
+ChaosManager="*res://autoload/chaos_manager.gd"
+SequenceManager="*res://autoload/sequence_manager.gd"
+RunManager="*res://autoload/run_manager.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=2
+window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ignore_expert_assets/plugin.cfg")
+
+[input]
+
+ui_accept={
+"deadzone": 0.5,
+"events": []
+}
+ui_select={
+"deadzone": 0.5,
+"events": []
+}
+ui_cancel={
+"deadzone": 0.5,
+"events": []
+}
+ui_left={
+"deadzone": 0.5,
+"events": []
+}
+ui_right={
+"deadzone": 0.5,
+"events": []
+}
+ui_up={
+"deadzone": 0.5,
+"events": []
+}
+ui_down={
+"deadzone": 0.5,
+"events": []
+}

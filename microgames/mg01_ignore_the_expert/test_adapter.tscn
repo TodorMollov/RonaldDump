@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5p8nak3n7xwq"]
+
+[ext_resource type="Script" path="res://microgames/mg01_ignore_the_expert/test_adapter.gd" id="1_test_adapter"]
+
+[node name="TestAdapter" type="Node"]
+script = ExtResource("1_test_adapter")

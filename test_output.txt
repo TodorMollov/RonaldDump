@@ -1,0 +1,14 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ERROR: Attempt to open script 'res://addons/gut/gut_cmdln.gd' resulted in error 'File not found'.
+At line:4 char:5
++     & $path $argList 2>&1
++     ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ERROR: Attempt ...ile not found'.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   at: load_source_code (modules/gdscript/gdscript.cpp:1120)
+ERROR: Failed loading resource: res://addons/gut/gut_cmdln.gd.
+   at: _load (core/io/resource_loader.cpp:343)
+ERROR: Can't load script: addons/gut/gut_cmdln.gd
+   at: start (main/main.cpp:4166)

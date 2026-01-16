@@ -1,0 +1,124 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7xm3qyg8vh4j"]
+
+[ext_resource type="Script" path="res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd" id="1_ignex"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.3, 0.3, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(0.8, 0.3, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.4, 0.3, 1)
+
+[node name="MicrogameIgnoreTheExpert" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ignex")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="Characters" type="Node2D" parent="."]
+
+[node name="Ronald" type="Sprite2D" parent="Characters"]
+position = Vector2(200, 400)
+scale = Vector2(1.5, 1.5)
+
+[node name="Expert" type="Sprite2D" parent="Characters"]
+position = Vector2(800, 400)
+scale = Vector2(1.2, 1.2)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AdviceProgress" type="ProgressBar" parent="UI"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 192.0
+offset_top = 20.0
+offset_right = -192.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
+max_value = 100.0
+value = 0.0
+show_percentage = false
+
+[node name="ExpertBubble" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.62
+anchor_top = 0.26
+anchor_right = 0.62
+anchor_bottom = 0.26
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 320.0
+offset_bottom = 140.0
+mouse_filter = 2
+
+[node name="ExpertText" type="Label" parent="UI/ExpertBubble"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+theme_override_font_sizes/font_size = 24
+text = ""
+autowrap_mode = 0
+clip_text = true
+
+[node name="DebugState" type="Label" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -100.0
+offset_right = 300.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 14
+text = "Debug State"
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="SFX_Talk" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="SFX_Cutoff" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="SFX_Success" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="SFX_Fail" type="AudioStreamPlayer" parent="Audio"]

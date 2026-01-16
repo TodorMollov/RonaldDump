@@ -1,0 +1,6 @@
+res://microgames/mg04_disinfectant_brainstorm/mg04_disinf_brainstorm.gd
+res://scenes/boot.gd
+res://microgames/mg05_peace_deal_speedrun/Microgame05_PeaceDealSpeedrun.tscn
+res://microgames/mg03_wall_builder/WallBuilder.gd
+res://microgames/mg05_peace_deal_speedrun/mg05_peace_deal_speedrun.gd
+res://tests/unit/microgames/test_mg05_peace_deal_speedrun.gd

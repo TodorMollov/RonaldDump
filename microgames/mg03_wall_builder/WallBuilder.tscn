@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://wallbuilder0001"]
+
+[ext_resource type="Script" path="res://microgames/mg03_wall_builder/WallBuilder.gd" id="1_wallbuilder"]
+
+[node name="WallBuilder" type="Node2D"]
+script = ExtResource("1_wallbuilder")
+
+[node name="VisualRoot" type="Node2D" parent="."]
+
+[node name="GridRoot" type="Node2D" parent="VisualRoot"]
+
+[node name="GridBackground" type="ColorRect" parent="VisualRoot/GridRoot"]
+
+[node name="GridLines" type="Node2D" parent="VisualRoot/GridRoot"]
+
+[node name="BlocksRoot" type="Node2D" parent="VisualRoot/GridRoot"]
+
+[node name="ActiveBlock" type="ColorRect" parent="VisualRoot/GridRoot"]
+
+[node name="BorderLine" type="ColorRect" parent="VisualRoot/GridRoot"]
+
+[node name="RonaldRoot" type="Node2D" parent="VisualRoot"]
+
+[node name="RonaldPlaceholder" type="ColorRect" parent="VisualRoot/RonaldRoot"]
+
+[node name="RonaldLabel" type="Label" parent="VisualRoot/RonaldRoot"]
+text = "RONALD"

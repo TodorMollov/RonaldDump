@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3lam7p5n8yql"]
+
+[ext_resource type="Script" path="res://microgames/mg01_ignore_the_expert/test_duration.gd" id="1_duration"]
+
+[node name="TestDuration" type="Node"]
+script = ExtResource("1_duration")

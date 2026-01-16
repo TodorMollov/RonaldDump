@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cak7m5p3n8xql"]
+
+[ext_resource type="Script" path="res://microgames/mg01_ignore_the_expert/test_framework_integration.gd" id="1_framework"]
+
+[node name="TestFrameworkIntegration" type="Node"]
+script = ExtResource("1_framework")

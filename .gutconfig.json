@@ -1,0 +1,10 @@
+{
+  "dirs": ["res://tests/unit/microgames/"],
+  "include_subdirs": false,
+  "should_maximize": false,
+  "compact_mode": false,
+  "log_level": 1,
+  "ignore_pause": true,
+  "hide_orphans": true,
+  "double_strategy": "partial"
+}

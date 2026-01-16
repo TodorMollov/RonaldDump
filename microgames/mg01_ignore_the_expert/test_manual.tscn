@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqv8yh2m3j4tk"]
+
+[ext_resource type="Script" path="res://microgames/mg01_ignore_the_expert/test_manual.gd" id="1_manual"]
+[ext_resource type="PackedScene" uid="uid://b7xm3qyg8vh4j" path="res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn" id="2_microgame"]
+
+[node name="TestManual" type="Node"]
+script = ExtResource("1_manual")
+
+[node name="MicrogameIgnoreTheExpert" parent="." instance=ExtResource("2_microgame")]
