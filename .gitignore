@@ -1,0 +1,21 @@
+# Godot
+.import/
+.export/
+.export_presets.cfg
+*.translation
+*.import
+
+# Mono / C#
+.mono/
+.vscode/
+
+# Builds / exports
+builds/
+dist/
+
+# Logs / temp
+*.log
+*.tmp
+
+# Cursor
+.cursor/
