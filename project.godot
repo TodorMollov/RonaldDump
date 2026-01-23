@@ -21,6 +21,7 @@ GlobalTimingController="*res://autoload/global_timing_controller.gd"
 ChaosManager="*res://autoload/chaos_manager.gd"
 SequenceManager="*res://autoload/sequence_manager.gd"
 RunManager="*res://autoload/run_manager.gd"
+MicrogameRegistry="*res://autoload/microgame_registry.gd"
 
 [display]
 

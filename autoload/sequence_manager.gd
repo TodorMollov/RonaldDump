@@ -6,7 +6,6 @@ const COOLDOWN_WINDOW_SIZE: int = 3
 
 var registry = null
 var recent_history: Array[String] = []  # Last N microgame IDs
-var last_played_id: String = ""
 
 
 func _ready() -> void:
@@ -16,57 +15,59 @@ func _ready() -> void:
 func initialize(p_registry) -> void:
 	registry = p_registry
 	recent_history.clear()
-	last_played_id = ""
 
 
 func select_next_microgame():
-	if not registry or registry.entries.size() == 0:
-		push_error("SequenceManager: No microgames registered")
+	if not registry:
+		return null
+	
+	var entries = registry.get_enabled_entries()
+	if entries.size() == 0:
+		# Empty registry is valid during production boot (no microgames registered yet)
+		# Return null silently - RunManager will handle gracefully
 		return null
 	
 	# If only one microgame, return it
-	if registry.entries.size() == 1:
-		var entry = registry.entries[0]
+	if entries.size() == 1:
+		var entry = entries[0]
 		_record_selection(entry.id)
 		return entry
 	
 	# Build weighted pool excluding cooldown entries
 	var available_entries: Array = []
-	var total_weight: int = 0
+	var total_weight: float = 0.0
 	
-	for entry in registry.entries:
+	for entry in entries:
 		# Skip if in cooldown window
 		if entry.id in recent_history:
 			continue
-		
-		# Skip if was last played (no immediate repetition)
-		if entry.id == last_played_id:
+		if entry.weight <= 0.0:
 			continue
-		
 		available_entries.append(entry)
-		total_weight += entry.weight
+		total_weight += float(entry.weight)
 	
-	# Fallback: if all are in cooldown, allow last played to be excluded only
+	# Fallback: if all are in cooldown, allow any enabled entries
 	if available_entries.size() == 0:
 		available_entries.clear()
-		total_weight = 0
-		for entry in registry.entries:
-			if entry.id != last_played_id:
-				available_entries.append(entry)
-				total_weight += entry.weight
+		total_weight = 0.0
+		for entry in entries:
+			if entry.weight <= 0.0:
+				continue
+			available_entries.append(entry)
+			total_weight += float(entry.weight)
 	
 	# Final fallback: if still empty, just use all
 	if available_entries.size() == 0:
-		available_entries = registry.entries.duplicate()
-		total_weight = registry.get_total_weight()
+		available_entries = entries.duplicate()
+		total_weight = registry.get_total_weight(entries)
 	
 	# Weighted random selection
-	var roll = randi() % total_weight
-	var cumulative = 0
+	var roll = randf() * total_weight
+	var cumulative = 0.0
 	
 	for entry in available_entries:
-		cumulative += entry.weight
-		if roll < cumulative:
+		cumulative += float(entry.weight)
+		if roll <= cumulative:
 			_record_selection(entry.id)
 			return entry
 	
@@ -77,8 +78,6 @@ func select_next_microgame():
 
 
 func _record_selection(id: String) -> void:
-	last_played_id = id
-	
 	# Add to history
 	recent_history.append(id)
 	
@@ -89,7 +88,6 @@ func _record_selection(id: String) -> void:
 
 func reset() -> void:
 	recent_history.clear()
-	last_played_id = ""
 
 
 func get_history() -> Array[String]:

@@ -1,4 +1,5 @@
 extends MicrogameBase
+const Style = preload("res://ui/placeholder_ui/PlaceholderUIStyle.gd")
 const ViewScenePath := "res://microgames/mg02_end_the_pandemic/end_the_pandemic_view.tscn"
 
 const INTRO_DURATION := 0.18
@@ -32,25 +33,26 @@ func _ready() -> void:
 	set_process(false)
 	set_process_input(false)
 
-func on_activate() -> void:
-	super.on_activate()
-	input_policy = InputRouter.InputPolicy.new(false, true, false, [], [])
-	set_process(false)
-	set_process_input(false)
+func activate(_context := {}) -> void:
+	is_active = true
+	microgame_result = Result.NONE
+	on_activate()
 
-func on_active_start() -> void:
-	super.on_active_start()
+func on_activate() -> void:
+	input_policy = InputRouter.InputPolicy.new(false, true, false, [], [])
 	start_microgame()
 
+func on_active_start() -> void:
+	set_process(true)
+	set_process_input(true)
+
 func on_active_end() -> void:
-	super.on_active_end()
 	# Ensure processing stops when active phase ends
 	set_process(false)
 	if not is_resolved():
 		force_resolve(Result.FAILURE)
 
 func on_deactivate() -> void:
-	super.on_deactivate()
 	_cleanup_view()
 
 func get_instruction_text() -> String:
@@ -77,8 +79,6 @@ func start_microgame(params := {}) -> void:
 	_prepare_view()
 
 	_update_timer_visual()
-	set_process(true)
-	set_process_input(true)
 
 func _determine_wait_duration(params: Dictionary) -> float:
 	var candidate = params.get("total_wait_duration_sec", null)
@@ -144,7 +144,7 @@ func _enter_fail_state() -> void:
 		return
 	current_state = State.FAIL_RESOLVE
 	set_process(false)
-	_paint_ronald(Color(0.85, 0.45, 0.45))
+	_paint_ronald(Style.PRIMARY_URGENT)
 	resolve_failure()
 	_cleanup_view()
 
@@ -153,7 +153,7 @@ func _enter_success_state() -> void:
 		return
 	current_state = State.SUCCESS_RESOLVE
 	set_process(false)
-	_paint_ronald(Color(0.5, 1.0, 0.5))
+	_paint_ronald(Style.PRIMARY_WARNING)
 	resolve_success()
 	_cleanup_view()
 

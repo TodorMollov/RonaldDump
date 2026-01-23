@@ -1,4 +1,5 @@
 extends MicrogameBase
+const Style = preload("res://ui/placeholder_ui/PlaceholderUIStyle.gd")
 
 ## Manual Test Checklist
 ## - Start microgame; sides/stamp/progress visible immediately
@@ -16,14 +17,15 @@ enum State {
 }
 
 const INTRO_MIN := 0.0
-const INTRO_MAX := 0.2
-const DURATION_MIN := 3.0
-const DURATION_MAX := 4.0
+const INTRO_MAX := 0.12
+const DURATION_MIN := 2.6
+const DURATION_MAX := 3.4
 
-const TARGET_PPS := 8.0
-const REQUIRED_MIN := 20
-const REQUIRED_MAX := 45
-const CONFIRM_COOLDOWN := 0.08
+const TARGET_PPS := 9.0
+const REQUIRED_MIN := 16
+const REQUIRED_MAX := 30
+const CONFIRM_COOLDOWN := 0.035  # Faster cadence
+const CONFIRM_ACTION := "ui_accept"
 
 @onready var visual_root: Node2D = $VisualRoot
 @onready var left_side: ColorRect = $VisualRoot/LeftSide
@@ -49,6 +51,12 @@ var _rng := RandomNumberGenerator.new()
 func _ready() -> void:
 	_setup_visuals()
 	set_process(false)
+	set_process_input(false)
+
+func activate(_context := {}) -> void:
+	is_active = true
+	microgame_result = Result.NONE
+	on_activate()
 
 func on_activate() -> void:
 	super.on_activate()
@@ -61,16 +69,19 @@ func on_activate() -> void:
 func on_active_start() -> void:
 	super.on_active_start()
 	set_process(true)
+	set_process_input(true)
 
 func on_active_end() -> void:
 	super.on_active_end()
 	set_process(false)
+	set_process_input(false)
 	if not is_resolved():
 		force_resolve(Result.FAILURE)
 
 func on_deactivate() -> void:
 	super.on_deactivate()
 	set_process(false)
+	set_process_input(false)
 
 func get_instruction_text() -> String:
 	return "Make Peace"
@@ -84,10 +95,6 @@ func on_input(actions: Array) -> void:
 	for action in actions:
 		if action == InputRouter.Action.CONFIRM or action == InputRouter.Action.POINTER_PRIMARY:
 			_try_count_confirm()
-
-func on_actions(actions: Array) -> void:
-	# Support any framework variants that call on_actions instead of on_input
-	on_input(actions)
 
 func force_resolve(outcome: int = Result.FAILURE) -> void:
 	if _resolved:
@@ -105,9 +112,9 @@ func start_microgame(params := {}) -> void:
 	_press_count = 0
 	_since_last_confirm = 999.0
 	
-	var seed = params.get("rng_seed", null)
-	if seed != null:
-		_rng.seed = seed
+	var rng_seed = params.get("rng_seed", null)
+	if rng_seed != null:
+		_rng.seed = rng_seed
 	else:
 		_rng.randomize()
 	
@@ -139,8 +146,8 @@ func _process(delta: float) -> void:
 		State.MASH_ACTIVE:
 			_elapsed += delta
 			_since_last_confirm += delta
-			# Fallback for keyboard confirm via InputMap (ui_accept)
-			if Input.is_action_just_pressed("ui_accept"):
+			# Direct keyboard fallback so holding focus without routed actions still works
+			if Input.is_action_just_pressed(CONFIRM_ACTION):
 				_try_count_confirm()
 			if _elapsed >= _duration_seconds:
 				_resolve_fail()
@@ -168,7 +175,7 @@ func _resolve_success() -> void:
 	peace_stamp.text = "PEACE!"
 	peace_stamp.scale = Vector2(1.4, 1.4)
 	ronald_label.text = "Exactly."
-	ronald_sprite.modulate = Color(0.3, 0.8, 0.3, 1)
+	ronald_sprite.modulate = Style.PRIMARY_WARNING
 	resolve_success()
 
 func _resolve_fail() -> void:
@@ -177,17 +184,17 @@ func _resolve_fail() -> void:
 	_resolved = true
 	_state = State.FAIL_RESOLVE
 	ronald_label.text = "Whatever."
-	ronald_sprite.modulate = Color(0.6, 0.6, 0.6, 1)
+	ronald_sprite.modulate = Style.PRIMARY_URGENT
 	resolve_failure()
 
 func _setup_visuals() -> void:
 	left_side.position = Vector2(140, 260)
 	left_side.size = Vector2(180, 160)
-	left_side.color = Color(0.3, 0.45, 0.9, 1)
+	left_side.color = Style.PRIMARY_WARNING
 	
 	right_side.position = Vector2(620, 260)
 	right_side.size = Vector2(180, 160)
-	right_side.color = Color(0.9, 0.4, 0.3, 1)
+	right_side.color = Style.PRIMARY_URGENT
 	
 	peace_stamp.position = Vector2(430, 240)
 	peace_stamp.scale = Vector2(1.0, 1.0)
@@ -202,7 +209,7 @@ func _setup_visuals() -> void:
 	
 	ronald_sprite.position = Vector2(820, 180)
 	ronald_sprite.size = Vector2(120, 180)
-	ronald_sprite.color = Color(0.2, 0.6, 0.2, 1)
+	ronald_sprite.color = Style.PRIMARY_WARNING
 	ronald_label.position = Vector2(830, 370)
 	ronald_label.text = "Ronald Dump"
 	ronald_label.set("theme_override_font_sizes/font_size", 18)
@@ -215,7 +222,7 @@ func _update_progress_visual() -> void:
 
 func _update_side_positions() -> void:
 	var progress = clampf(float(_press_count) / float(_required_presses), 0.0, 1.0)
-	var shift = progress * 140.0
+	var shift = progress * 260.0
 	left_side.position.x = 140 + shift
 	right_side.position.x = 620 - shift
 

@@ -1,6 +1,6 @@
 {
-  "dirs": ["res://tests/unit/microgames/"],
-  "include_subdirs": false,
+  "dirs": ["res://tests/unit/"],
+  "include_subdirs": true,
   "should_maximize": false,
   "compact_mode": false,
   "log_level": 1,

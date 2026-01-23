@@ -1,13 +1,68 @@
-[gd_scene load_steps=3 format=3 uid="uid://btgxs0bxr7waw"]
+[gd_scene load_steps=8 format=3 uid="uid://btgxs0bxr7waw"]
 
 [ext_resource type="Script" path="res://scenes/game_root.gd" id="1_5pvjr"]
-[ext_resource type="PackedScene" uid="uid://c2xbxh08iy3pr" path="res://scenes/hud.tscn" id="2_gq8km"]
+[ext_resource type="Script" path="res://framework/chaos/ShakeDriver.gd" id="2_1q8wd"]
+[ext_resource type="Script" path="res://framework/chaos/NoiseRect.gd" id="3_3g0hs"]
+[ext_resource type="Script" path="res://framework/chaos/FakeUIClutter.gd" id="4_1bx6e"]
+[ext_resource type="Script" path="res://framework/chaos/FlickerDriver.gd" id="5_u1hj6"]
+[ext_resource type="PackedScene" path="res://scenes/MainMenu.tscn" id="6_s2m1d"]
+[ext_resource type="PackedScene" path="res://scenes/YouWon.tscn" id="7_6t6os"]
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1_5pvjr")
 
-[node name="MicrogameLayer" type="Node2D" parent="."]
+[node name="PresentationRoot" type="Node2D" parent="."]
+
+[node name="BackgroundLayer" type="Node2D" parent="PresentationRoot"]
+
+[node name="MicrogameLayer" type="Node" parent="PresentationRoot"]
+
+[node name="InstructionOverlay" type="CanvasLayer" parent="."]
+
+[node name="InstructionLabel" type="Label" parent="InstructionOverlay"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 60.0
+offset_right = 200.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "INSTRUCTION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChaosFX" type="CanvasLayer" parent="."]
+
+[node name="ShakeDriver" type="Node" parent="ChaosFX"]
+script = ExtResource("2_1q8wd")
+
+[node name="NoiseRect" type="ColorRect" parent="ChaosFX"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 1)
+script = ExtResource("3_3g0hs")
+
+[node name="FakeUIRoot" type="Control" parent="ChaosFX"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_1bx6e")
+
+[node name="FlickerDriver" type="Node" parent="ChaosFX"]
+script = ExtResource("5_u1hj6")
+instruction_overlay_path = NodePath("../../InstructionOverlay")
+noise_rect_path = NodePath("../NoiseRect")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="UILayer" instance=ExtResource("2_gq8km")]
+[node name="MainMenu" parent="UILayer" instance=ExtResource("6_s2m1d")]
+
+[node name="YouWon" parent="UILayer" instance=ExtResource("7_6t6os")]

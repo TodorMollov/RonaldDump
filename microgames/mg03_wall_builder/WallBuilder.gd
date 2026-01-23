@@ -1,4 +1,5 @@
 extends MicrogameBase
+const Style = preload("res://ui/placeholder_ui/PlaceholderUIStyle.gd")
 
 ## Manual Test Checklist
 ## - Start a run; ensure instruction is "Build Wall"
@@ -64,7 +65,9 @@ func on_activate() -> void:
 	_reset_state()
 	_spawn_block()
 
-func activate() -> void:
+func activate(_context := {}) -> void:
+	is_active = true
+	microgame_result = Result.NONE
 	on_activate()
 
 func on_active_start() -> void:
@@ -87,9 +90,6 @@ func on_deactivate() -> void:
 	_clear_blocks()
 	active_block.visible = false
 
-func deactivate() -> void:
-	on_deactivate()
-
 func get_instruction_text() -> String:
 	return "Build Wall"
 
@@ -97,9 +97,6 @@ func get_input_policy() -> InputRouter.InputPolicy:
 	return input_policy
 
 func on_input(actions: Array) -> void:
-	on_actions(actions)
-
-func on_actions(actions: Array) -> void:
 	if not is_active or resolved_once:
 		return
 	if current_state != State.ACTIVE:
@@ -148,7 +145,6 @@ func _reset_state() -> void:
 	has_active = false
 	active_block.visible = false
 	_clear_blocks()
-	start_microgame()
 
 func _spawn_block() -> void:
 	var spawn_col = _find_spawn_column()
@@ -265,7 +261,7 @@ func _spawn_locked_visual(row: int, col: int) -> void:
 	if not presentation_enabled:
 		return
 	var block = ColorRect.new()
-	block.color = Color(0.2, 0.8, 0.9, 1)
+	block.color = Style.PRIMARY_WARNING
 	block.size = Vector2(CELL_SIZE, CELL_SIZE)
 	block.position = _grid_to_position(row, col)
 	blocks_root.add_child(block)
@@ -275,7 +271,7 @@ func _update_active_visual() -> void:
 		return
 	active_block.visible = true
 	active_block.size = Vector2(CELL_SIZE, CELL_SIZE)
-	active_block.color = Color(0.95, 0.6, 0.2, 1)
+	active_block.color = Style.PRIMARY_URGENT
 	active_block.position = _grid_to_position(active_row, active_col)
 
 func _grid_to_position(row: int, col: int) -> Vector2:
@@ -294,18 +290,18 @@ func _setup_visuals() -> void:
 	grid_root.position = Vector2.ZERO
 	grid_background.position = GRID_ORIGIN
 	grid_background.size = Vector2(COLS * CELL_SIZE, ROWS * CELL_SIZE)
-	grid_background.color = Color(0.08, 0.08, 0.12, 1)
+	grid_background.color = Style.BG_DARK
 	_build_grid_lines()
 	active_block.visible = false
 	border_line.position = GRID_ORIGIN + Vector2(0, ROWS * CELL_SIZE + 4)
 	border_line.size = Vector2(COLS * CELL_SIZE, 4)
-	border_line.color = Color(0.9, 0.9, 0.9, 1)
+	border_line.color = Style.TEXT_NOISE
 	_setup_ronald_placeholder()
 
 func _build_grid_lines() -> void:
 	for child in grid_lines.get_children():
 		child.queue_free()
-	var line_color = Color(0.9, 0.9, 0.9, 0.4)
+	var line_color = Style.TEXT_NOISE
 	for c in range(COLS + 1):
 		var line = Line2D.new()
 		line.width = 2.0
@@ -327,7 +323,7 @@ func _setup_ronald_placeholder() -> void:
 	ronald_root.position = GRID_ORIGIN + Vector2(COLS * CELL_SIZE + 60, 40)
 	ronald_placeholder.position = Vector2.ZERO
 	ronald_placeholder.size = Vector2(120, 180)
-	ronald_placeholder.color = Color(0.2, 0.6, 0.2, 1)
+	ronald_placeholder.color = Style.PRIMARY_WARNING
 	ronald_label.position = Vector2(10, 10)
 	ronald_label.text = "RONALD"
 

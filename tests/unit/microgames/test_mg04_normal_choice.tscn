@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcp5uw8lf7a4h"]
+
+[ext_resource type="Script" path="res://tests/unit/microgames/test_mg04_normal_choice.gd" id="1_x7o4g"]
+
+[node name="TestMG04NormalChoice" type="Node"]
+script = ExtResource("1_x7o4g")

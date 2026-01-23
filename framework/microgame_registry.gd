@@ -1,6 +1,6 @@
 extends Resource
-class_name MicrogameRegistry
-## Resource-based registry for all microgames
+class_name MicrogameRegistryResource
+## Deprecated resource registry (use autoload/MicrogameRegistry instead)
 
 class MicrogameEntry:
 	var id: String

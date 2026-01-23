@@ -138,15 +138,9 @@ func _collect_input(event: InputEvent) -> void:
 			JOY_BUTTON_BACK, JOY_BUTTON_START:
 				_frame_actions[Action.CANCEL] = true
 	
-	# Controller axis
+	# Controller axis (ignored for actionable input)
 	elif event is InputEventJoypadMotion:
-		if abs(event.axis_value) > 0.5:
-			actionable = true
-			if event.axis == JOY_AXIS_LEFT_X:
-				if event.axis_value < -0.5:
-					_frame_actions[Action.MOVE_LEFT] = true
-				elif event.axis_value > 0.5:
-					_frame_actions[Action.MOVE_RIGHT] = true
+		pass
 	
 	if actionable:
 		_any_actionable_input = true

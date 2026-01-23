@@ -84,23 +84,42 @@ func _start_next_microgame() -> void:
 	if run_timer >= run_duration:
 		_end_run()
 		return
-	
+
+	# Ensure registry/sequence manager are initialized (defensive)
+	if SequenceManager.registry == null:
+		SequenceManager.initialize(MicrogameRegistry)
+
+	# Debug trace: starting selection
+	print("[RunManager] Selecting next microgame. Entries:", MicrogameRegistry.get_enabled_entries().size())
+
 	# Select next microgame
 	var entry = SequenceManager.select_next_microgame()
 	if not entry:
-		push_error("RunManager: Failed to select microgame")
-		_end_run()
+		# No microgames available - end run gracefully
+		# This is valid during development when no production microgames exist
+		# Try to repopulate once from MicrogameRegistry if empty
+		if MicrogameRegistry.get_enabled_entries().size() == 0:
+			print("[RunManager] No enabled entries; ending run.")
+			_end_run()
+			return
+		SequenceManager.initialize(MicrogameRegistry)
+		entry = SequenceManager.select_next_microgame()
+		if not entry:
+			print("[RunManager] Selection still null after reinit; ending run.")
+			_end_run()
 		return
+
+	print("[RunManager] Selected microgame:", entry.id)
 	
 	# Load and instantiate microgame
-	var microgame_scene = load(entry.scene_path) as PackedScene
+	var microgame_scene = ResourceLoader.load(entry.scene_path, "", ResourceLoader.CACHE_MODE_IGNORE) as PackedScene
 	if not microgame_scene:
 		push_error("RunManager: Failed to load microgame scene: " + entry.scene_path)
 		_end_run()
 		return
 	
 	active_microgame = microgame_scene.instantiate()
-	if not active_microgame or not active_microgame.has_method("on_activate"):
+	if not active_microgame or not active_microgame.has_method("activate"):
 		push_error("RunManager: Microgame scene is not MicrogameBase: " + entry.scene_path)
 		_end_run()
 		return
@@ -110,7 +129,7 @@ func _start_next_microgame() -> void:
 	
 	# Start microgame sequence
 	microgame_sequence_started.emit()
-	active_microgame.on_activate()
+	active_microgame.activate({ "run_mode": current_mode })
 	
 	# Start INSTRUCTION phase
 	GlobalTimingController.start_instruction()
@@ -121,7 +140,7 @@ func _start_next_microgame() -> void:
 	await GlobalTimingController.phase_complete
 	
 	# Start ACTIVE phase
-	_start_active_phase()
+	await _start_active_phase()
 
 
 func _start_active_phase() -> void:
@@ -135,6 +154,10 @@ func _start_active_phase() -> void:
 	InputRouter.set_input_policy(policy)
 	InputRouter.set_gameplay_mode()
 	InputRouter.enable_input()
+	
+	# Safely connect (disconnect first if already connected)
+	if InputRouter.input_delivered.is_connected(_on_input_delivered):
+		InputRouter.input_delivered.disconnect(_on_input_delivered)
 	InputRouter.input_delivered.connect(_on_input_delivered)
 	
 	active_microgame.on_active_start()
@@ -145,7 +168,10 @@ func _start_active_phase() -> void:
 	
 	# Disable input
 	InputRouter.disable_input()
-	InputRouter.input_delivered.disconnect(_on_input_delivered)
+	
+	# Safely disconnect
+	if InputRouter.input_delivered.is_connected(_on_input_delivered):
+		InputRouter.input_delivered.disconnect(_on_input_delivered)
 	
 	# Force resolve if not already resolved
 	if active_microgame and not active_microgame.is_resolved():
@@ -154,12 +180,12 @@ func _start_active_phase() -> void:
 	# Finish the microgame (whether it resolved early or timed out)
 	if active_microgame:
 		var success = active_microgame.get_result() == MicrogameBase.Result.SUCCESS
-		_finish_microgame(success)
+		await _finish_microgame(success)
 
 
 func _on_input_delivered(actions: Array) -> void:
 	if active_microgame and active_microgame.is_active:
-		active_microgame.on_input(actions)
+		active_microgame.on_actions(actions)
 
 
 func _on_microgame_resolved(_success: bool) -> void:
@@ -176,37 +202,55 @@ func _force_neutral_resolve() -> void:
 	if not active_microgame or active_microgame.is_resolved():
 		return
 	
-	# For chaos purposes, treat as neutral (still increment)
-	active_microgame.microgame_result = 1  # SUCCESS
-	_finish_microgame(true)
+	# Neutral resolve: do not increment chaos
+	active_microgame.microgame_result = MicrogameBase.Result.SUCCESS
+	active_microgame.deactivate()
+	active_microgame.queue_free()
+	active_microgame = null
 
 
 func _finish_microgame(success: bool) -> void:
 	if not active_microgame:
+		print("[RunManager._finish_microgame] No active microgame; returning early.")
 		return
 	
-	# Start RESOLVE phase
-	GlobalTimingController.start_resolve()
+	print("[RunManager._finish_microgame] Starting cleanup.")
+	
+	# Start RESOLVE phase (if not already running)
+	if GlobalTimingController.current_phase != GlobalTimingController.Phase.RESOLVE:
+		print("[RunManager._finish_microgame] Starting RESOLVE phase.")
+		GlobalTimingController.start_resolve()
 	microgame_resolved.emit(success)
+	print("[RunManager._finish_microgame] Emitted signal. Success:", success)
 	
 	# Increment chaos
-	ChaosManager.increment_chaos()
+	ChaosManager.apply_microgame_result(success, false)
 	microgames_played += 1
+	print("[RunManager._finish_microgame] Microgames played:", microgames_played)
 	
 	# Wait for resolve to complete
+	print("[RunManager._finish_microgame] Awaiting RESOLVE phase...")
 	await GlobalTimingController.phase_complete
+	print("[RunManager._finish_microgame] RESOLVE complete.")
 	
 	# Clean up microgame
-	active_microgame.on_deactivate()
-	active_microgame.queue_free()
-	active_microgame = null
+	print("[RunManager._finish_microgame] Deactivating microgame...")
+	if active_microgame:
+		active_microgame.on_deactivate()
+		print("[RunManager._finish_microgame] Freeing microgame...")
+		active_microgame.queue_free()
+		active_microgame = null
+	print("[RunManager._finish_microgame] Flushing input...")
 	
 	# Flush input for next microgame
 	InputRouter.flush_input()
 	
 	# Start next microgame
+	print("[RunManager._finish_microgame] Awaiting frame...")
 	await get_tree().process_frame
-	_start_next_microgame()
+	print("[RunManager._finish_microgame] Calling _start_next_microgame()...")
+	await _start_next_microgame()
+	print("[RunManager._finish_microgame] Complete.")
 
 
 func _end_run() -> void:
@@ -215,8 +259,7 @@ func _end_run() -> void:
 	
 	# Clean up active microgame if any
 	if active_microgame:
-		active_microgame.queue_free()
-		active_microgame = null
+		_force_neutral_resolve()
 	
 	GlobalTimingController.stop()
 	InputRouter.set_ui_mode()

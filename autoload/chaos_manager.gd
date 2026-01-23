@@ -3,6 +3,7 @@ extends Node
 ## Chaos affects presentation only, never gameplay logic
 
 signal chaos_changed(new_value: float)
+signal tier_changed(new_tier: int, fx_config: Dictionary)
 
 enum RunMode {
 	NORMAL,
@@ -10,15 +11,32 @@ enum RunMode {
 	ENDLESS
 }
 
-const BASE_CHAOS_INCREMENT: float = 0.05
-const MODE_MULTIPLIERS = {
+const CHAOS_MAX := 10.0
+const BASE_SUCCESS := 0.22
+const BASE_FAILURE := 0.55
+const MODE_MULT := {
 	RunMode.NORMAL: 1.0,
-	RunMode.UNHINGED: 1.5,
-	RunMode.ENDLESS: 0.8
+	RunMode.UNHINGED: 1.6,
+	RunMode.ENDLESS: 1.0
 }
 
-var current_chaos: float = 0.0
+const TIER_STEP := 1.25
+const MAX_TIER := 7
+
+const CHAOS_TIERS := {
+	0: {"ui_jitter": false, "screen_shake_strength": 0.0, "noise_opacity": 0.0,  "fake_ui_density": 0.0,  "flicker_interval": 0.0},
+	1: {"ui_jitter": true,  "screen_shake_strength": 0.1, "noise_opacity": 0.0,  "fake_ui_density": 0.0,  "flicker_interval": 0.0},
+	2: {"ui_jitter": true,  "screen_shake_strength": 0.25,"noise_opacity": 0.0,  "fake_ui_density": 0.0,  "flicker_interval": 0.0},
+	3: {"ui_jitter": true,  "screen_shake_strength": 0.35,"noise_opacity": 0.15, "fake_ui_density": 0.0,  "flicker_interval": 0.0},
+	4: {"ui_jitter": true,  "screen_shake_strength": 0.45,"noise_opacity": 0.25, "fake_ui_density": 0.15, "flicker_interval": 0.0},
+	5: {"ui_jitter": true,  "screen_shake_strength": 0.6, "noise_opacity": 0.35, "fake_ui_density": 0.30, "flicker_interval": 0.20},
+	6: {"ui_jitter": true,  "screen_shake_strength": 0.8, "noise_opacity": 0.50, "fake_ui_density": 0.45, "flicker_interval": 0.12},
+	7: {"ui_jitter": true,  "screen_shake_strength": 1.0, "noise_opacity": 0.65, "fake_ui_density": 0.65, "flicker_interval": 0.08}
+}
+
+var chaos_level: float = 0.0
 var current_mode: RunMode = RunMode.NORMAL
+var current_tier: int = 0
 var microgames_completed: int = 0
 
 
@@ -27,50 +45,43 @@ func _ready() -> void:
 
 
 func reset(mode: RunMode = RunMode.NORMAL) -> void:
-	current_chaos = 0.0
+	chaos_level = 0.0
 	current_mode = mode
 	microgames_completed = 0
-	chaos_changed.emit(current_chaos)
+	_update_tier_and_emit(true)
+
+
+func apply_microgame_result(success: bool, forced: bool = false) -> void:
+	"""Apply chaos based on microgame outcome. Forced resolve adds 0.0."""
+	if forced:
+		return
+	var base = BASE_SUCCESS if success else BASE_FAILURE
+	var multiplier = MODE_MULT.get(current_mode, 1.0)
+	chaos_level = clampf(chaos_level + (base * multiplier), 0.0, CHAOS_MAX)
+	microgames_completed += 1
+	_update_tier_and_emit(false)
 
 
 func increment_chaos() -> void:
-	"""Called after each microgame completes (success or failure)"""
-	var multiplier = MODE_MULTIPLIERS.get(current_mode, 1.0)
-	var increment = BASE_CHAOS_INCREMENT * multiplier
-	
-	current_chaos = clampf(current_chaos + increment, 0.0, 1.0)
-	microgames_completed += 1
-	
-	chaos_changed.emit(current_chaos)
+	"""Compatibility: treat as success."""
+	apply_microgame_result(true, false)
 
 
 func get_chaos_level() -> float:
-	return current_chaos
+	return chaos_level
 
 
-func get_chaos_category() -> String:
-	if current_chaos < 0.25:
-		return "LOW"
-	elif current_chaos < 0.5:
-		return "MEDIUM"
-	elif current_chaos < 0.75:
-		return "HIGH"
-	else:
-		return "EXTREME"
+func get_tier() -> int:
+	return int(clampf(floor(chaos_level / TIER_STEP), 0.0, float(MAX_TIER)))
 
 
-func get_visual_intensity() -> float:
-	"""Returns 0.0 to 1.0 for visual effect intensity"""
-	return current_chaos
+func get_fx_config() -> Dictionary:
+	return CHAOS_TIERS.get(get_tier(), CHAOS_TIERS[0])
 
 
-func should_apply_screen_shake() -> bool:
-	return current_chaos > 0.4
-
-
-func get_screen_shake_intensity() -> float:
-	return clampf((current_chaos - 0.4) / 0.6, 0.0, 1.0)
-
-
-func get_color_distortion() -> float:
-	return clampf(current_chaos * 0.5, 0.0, 0.5)
+func _update_tier_and_emit(force_emit: bool) -> void:
+	var new_tier = get_tier()
+	if force_emit or new_tier != current_tier:
+		current_tier = new_tier
+		tier_changed.emit(current_tier, get_fx_config())
+	chaos_changed.emit(chaos_level)

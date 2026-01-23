@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3kws7f2x2ok2"]
+
+[ext_resource type="Script" path="res://tests/fixtures/TestMicrogame.gd" id="1_3ly6p"]
+
+[node name="TestMicrogame" type="Node"]
+script = ExtResource("1_3ly6p")
