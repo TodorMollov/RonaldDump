@@ -24,9 +24,10 @@ const GIBBERISH_BANK := [
 @onready var background: ColorRect = $Background
 @onready var ronald_sprite: Sprite2D = $Characters/Ronald
 @onready var expert_sprite: Sprite2D = $Characters/Expert
-@onready var advice_progress: ProgressBar = $UI/AdviceProgress
-@onready var expert_bubble: PanelContainer = $UI/ExpertBubble
-@onready var expert_text: Label = $UI/ExpertBubble/ExpertText
+@onready var advice_progress: Control = $UI/AdviceProgress
+@onready var bar_fill: TextureRect = $UI/AdviceProgress/BarFill
+@onready var expert_bubble: NinePatchRect = $UI/ExpertBubble
+@onready var expert_text: Label = $UI/ExpertBubble/MarginContainer/ExpertText
 @onready var debug_state: Label = $UI/DebugState
 @onready var sfx_talk: AudioStreamPlayer = $Audio/SFX_Talk
 @onready var sfx_cutoff: AudioStreamPlayer = $Audio/SFX_Cutoff
@@ -117,9 +118,7 @@ func _init_microgame(params := {}) -> void:
 	_clear_idle_tweens()
 	_create_idle_tweens()
 	_clear_expert_jitter()
-	if advice_progress:
-		advice_progress.value = 0.0
-	_update_progress_bar_color(0.0)
+	_update_progress_bar(0.0)
 	update_debug_state()
 
 
@@ -206,17 +205,20 @@ func _enter_advice_active() -> void:
 
 
 func _update_progress() -> void:
-	if not advice_progress:
+	if not bar_fill:
 		return
 	var pct = clampf(_active_elapsed / _advice_deadline, 0.0, 1.0)
-	advice_progress.value = pct * advice_progress.max_value
-	_update_progress_bar_color(pct)
+	_update_progress_bar(pct)
 
 
-func _update_progress_bar_color(percent: float) -> void:
-	if not advice_progress:
+func _update_progress_bar(percent: float) -> void:
+	if not bar_fill or not advice_progress:
 		return
-	advice_progress.add_theme_color_override("fg_color", Style.advice_bar_color(percent))
+	# Scale the bar fill width based on percentage
+	var full_width = advice_progress.size.x - 8.0  # Account for padding
+	bar_fill.size.x = full_width * percent
+	# Update color based on progress
+	bar_fill.modulate = Style.advice_bar_color(percent)
 
 
 func _update_expert_text(delta: float) -> void:
@@ -254,8 +256,7 @@ func _resolve_success() -> void:
 	_play_safe(sfx_success)
 	_clear_expert_jitter()
 	_clear_idle_tweens()
-	if advice_progress:
-		advice_progress.value = advice_progress.max_value
+	_update_progress_bar(1.0)
 	microgame_result = Result.SUCCESS
 	InputRouter.consume_first_input()
 	resolved.emit(Outcome.SUCCESS)
@@ -334,17 +335,22 @@ func _apply_assets() -> void:
 func _assign_texture(sprite: Sprite2D, path: String) -> void:
 	if not sprite:
 		return
-	var loaded := ResourceLoader.load(path)
-	if loaded:
-		sprite.texture = loaded
+	# If texture already set in scene, don't override
+	if sprite.texture != null:
 		return
+	# Fallback: try to load texture if not set in scene
+	if ResourceLoader.exists(path):
+		var loaded := ResourceLoader.load(path)
+		if loaded:
+			sprite.texture = loaded
+			return
 	if FileAccess.file_exists(path):
 		var image := Image.new()
 		if image.load(path) == OK:
 			var texture := ImageTexture.create_from_image(image)
 			sprite.texture = texture
 			return
-	push_warning("[IgnoreExpert] Failed to load texture: %s" % path)
+	# Silent fallback - no warning if texture not found (scene may have set it)
 
 
 func _stop_all_audio() -> void:

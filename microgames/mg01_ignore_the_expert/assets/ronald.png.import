@@ -3,11 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ffm7buhs0lu4"
-valid=false
+path="res://.godot/imported/ronald.png-33190e5949a1f62b5e5799bfa29589cb.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://microgames/mg01_ignore_the_expert/assets/ronald.png"
+dest_files=["res://.godot/imported/ronald.png-33190e5949a1f62b5e5799bfa29589cb.ctex"]
 
 [params]
 

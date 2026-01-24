@@ -1,3 +1,3 @@
 res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd
-res://microgames/mg04_disinfectant_brainstorm/Microgame04_DisinfBrainstorm.tscn
-res://microgames/mg04_disinfectant_brainstorm/mg04_disinf_brainstorm.gd
+res://scenes/MainMenu.tscn
+res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn
