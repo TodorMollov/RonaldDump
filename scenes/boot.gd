@@ -16,25 +16,25 @@ func _ready() -> void:
 		"end_the_pandemic",
 		"res://microgames/mg02_end_the_pandemic/MicrogameEndThePandemic.tscn",
 		1.0,
-		true
+		false
 	)
 	MicrogameRegistry.register_microgame(
 		"wall_builder",
 		"res://microgames/mg03_wall_builder/WallBuilder.tscn",
 		1.0,
-		true
+		false
 	)
 	MicrogameRegistry.register_microgame(
 		"disinfectant_brainstorm",
 		"res://microgames/mg04_disinfectant_brainstorm/Microgame04_DisinfBrainstorm.tscn",
 		1.0,
-		true
+		false
 	)
 	MicrogameRegistry.register_microgame(
 		"peace_deal_speedrun",
 		"res://microgames/mg05_peace_deal_speedrun/Microgame05_PeaceDealSpeedrun.tscn",
 		1.0,
-		true
+		false
 	)
 	
 	# Initialize sequence manager

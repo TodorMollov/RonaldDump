@@ -7,10 +7,13 @@ GUT version:  9.3.0
 [4m
 
 res://tests/unit/microgames/test_ignore_the_expert.gd
-[0m* test_resolved_emitted_once_inputs_afterwards_ignored
+[0m* test_fail_when_total_duration_hits_without_input
+[31m    [Failed]:  [0m[0] expected to equal [2]:  Total timeout should fail
+      at line 68
+* test_resolved_emitted_once_inputs_afterwards_ignored
 [31m    [Failed]:  [0m[0] expected to equal [1]:  Resolved should emit once
       at line 81
-[1m6/7 passed.
+[1m5/7 passed.
 [0m[4m
 
 res://tests/unit/test_chaos_fx_mapping.gd
@@ -279,23 +282,6 @@ Microgame started: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExp
 [RunManager._finish_microgame] Emitted signal. Success:false
 [RunManager._finish_microgame] Microgames played:18
 [RunManager._finish_microgame] Awaiting RESOLVE phase...
-[RunManager._finish_microgame] RESOLVE complete.
-[RunManager._finish_microgame] Deactivating microgame...
-[RunManager._finish_microgame] Freeing microgame...
-[RunManager._finish_microgame] Flushing input...
-[RunManager._finish_microgame] Awaiting frame...
-[RunManager._finish_microgame] RESOLVE complete.
-[RunManager._finish_microgame] Deactivating microgame...
-[RunManager._finish_microgame] Flushing input...
-[RunManager._finish_microgame] Awaiting frame...
-[RunManager._finish_microgame] Calling _start_next_microgame()...
-[RunManager] Selecting next microgame. Entries:1
-[RunManager] Selected microgame:ignore_the_expert
-Microgame started: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd
-[RunManager._finish_microgame] Calling _start_next_microgame()...
-[RunManager] Selecting next microgame. Entries:1
-[RunManager] Selected microgame:ignore_the_expert
-Microgame started: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd
 ✓ Test passed: 18 microgames completed without stopping
 [1m1/1 passed.
 [0m[4m
@@ -305,16 +291,5 @@ res://tests/unit/test_no_unexpected_indent.gd
 Debugger Break, Reason: 'Invalid call. Nonexistent function 'strip' in base 'String'.'
 *Frame 0 - res://tests/unit/test_no_unexpected_indent.gd:19 in function 'test_no_unexpected_indent_in_class_body'
 Enter "help" for assistance.
-debug> Error: Invalid command, enter "help" for assistance.
-debug> Error: Invalid command, enter "help" for assistance.
-debug> Error: Invalid command, enter "help" for assistance.
-debug> Error: Invalid command, enter "help" for assistance.
-debug> Error: Invalid command, enter "help" for assistance.
-debug> Error: Invalid command, enter "help" for assistance.
-debug> 
-Debugger Break, Reason: 'Invalid call. Nonexistent function 'strip' in base 'String'.'
-*Frame 0 - res://tests/unit/test_no_unexpected_indent.gd:19 in function 'test_no_unexpected_indent_in_class_body'
-Enter "help" for assistance.
-debug> Error: Invalid command, enter "help" for assistance.
 debug> Error: Invalid command, enter "help" for assistance.
 debug> 

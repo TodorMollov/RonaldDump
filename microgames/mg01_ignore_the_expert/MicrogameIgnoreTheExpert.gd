@@ -24,8 +24,6 @@ const GIBBERISH_BANK := [
 @onready var background: ColorRect = $Background
 @onready var ronald_sprite: Sprite2D = $Characters/Ronald
 @onready var expert_sprite: Sprite2D = $Characters/Expert
-@onready var advice_progress: Control = $UI/AdviceProgress
-@onready var bar_fill: TextureRect = $UI/AdviceProgress/BarFill
 @onready var expert_bubble: NinePatchRect = $UI/ExpertBubble
 @onready var expert_text: Label = $UI/ExpertBubble/MarginContainer/ExpertText
 @onready var debug_state: Label = $UI/DebugState
@@ -51,11 +49,14 @@ var _expert_char_timer := 0.0
 var _running := false
 var _resolved_flag := false
 
+var _expert_overlay: Node = null
+
 
 func _ready() -> void:
 	AssetBootstrap.ensure_assets()
 	_apply_assets()
 	_apply_style()
+	_expert_overlay = expert_sprite
 	set_process(false)
 	set_process_unhandled_input(true)
 	update_debug_state()
@@ -83,6 +84,7 @@ func on_deactivate() -> void:
 	_stop_all_audio()
 	_clear_idle_tweens()
 	_clear_expert_jitter()
+	_hide_ignore_overlay()
 
 
 func start_microgame(params := {}) -> void:
@@ -93,6 +95,7 @@ func start_microgame(params := {}) -> void:
 
 func _init_microgame(params := {}) -> void:
 	presentation_enabled = params.get("presentation_enabled", true)
+	_setup_audio()
 	microgame_result = Result.NONE
 	_resolved_flag = false
 	_rng = RandomNumberGenerator.new()
@@ -101,7 +104,10 @@ func _init_microgame(params := {}) -> void:
 	else:
 		_rng.randomize()
 	_intro_duration = params.get("intro_duration_sec", _rng.randf_range(INTRO_RANGE.x, INTRO_RANGE.y))
-	_total_duration = clampf(params.get("total_duration_sec", _rng.randf_range(TOTAL_RANGE.x, TOTAL_RANGE.y)), TOTAL_RANGE.x, HARD_CAP)
+	if params.has("total_duration_sec"):
+		_total_duration = clampf(params["total_duration_sec"], 0.1, HARD_CAP)
+	else:
+		_total_duration = clampf(_rng.randf_range(TOTAL_RANGE.x, TOTAL_RANGE.y), TOTAL_RANGE.x, HARD_CAP)
 	var deadline_candidate = params.get("advice_deadline_sec", _rng.randf_range(ADVICE_RANGE.x, ADVICE_RANGE.y))
 	var max_deadline = maxf(0.6, _total_duration - ADVICE_MIN_BUFFER)
 	_advice_deadline = clampf(deadline_candidate, 0.5, max_deadline)
@@ -118,7 +124,9 @@ func _init_microgame(params := {}) -> void:
 	_clear_idle_tweens()
 	_create_idle_tweens()
 	_clear_expert_jitter()
-	_update_progress_bar(0.0)
+	_hide_ignore_overlay()
+
+
 	update_debug_state()
 
 
@@ -162,7 +170,6 @@ func _process(delta: float) -> void:
 		State.ADVICE_ACTIVE:
 			_active_elapsed += delta
 			_update_expert_text(delta)
-			_update_progress()
 			if _active_elapsed >= _advice_deadline or _intro_elapsed + _active_elapsed >= _total_duration:
 				_resolve_fail()
 		State.SUCCESS_RESOLVE, State.FAIL_RESOLVE:
@@ -187,6 +194,15 @@ func handle_any_input() -> void:
 	_handle_player_input()
 
 
+func on_input(actions: Array) -> void:
+	if not _running or _resolved_flag:
+		return
+	if InputRouter.has_action(actions, InputRouter.Action.ANY) \
+		or InputRouter.has_action(actions, InputRouter.Action.CONFIRM) \
+		or InputRouter.has_action(actions, InputRouter.Action.POINTER_PRIMARY):
+		_handle_player_input()
+
+
 func _handle_player_input() -> void:
 	if not _running or _resolved_flag:
 		return
@@ -203,22 +219,6 @@ func _enter_advice_active() -> void:
 		_play_safe(sfx_talk)
 	update_debug_state()
 
-
-func _update_progress() -> void:
-	if not bar_fill:
-		return
-	var pct = clampf(_active_elapsed / _advice_deadline, 0.0, 1.0)
-	_update_progress_bar(pct)
-
-
-func _update_progress_bar(percent: float) -> void:
-	if not bar_fill or not advice_progress:
-		return
-	# Scale the bar fill width based on percentage
-	var full_width = advice_progress.size.x - 8.0  # Account for padding
-	bar_fill.size.x = full_width * percent
-	# Update color based on progress
-	bar_fill.modulate = Style.advice_bar_color(percent)
 
 
 func _update_expert_text(delta: float) -> void:
@@ -256,10 +256,10 @@ func _resolve_success() -> void:
 	_play_safe(sfx_success)
 	_clear_expert_jitter()
 	_clear_idle_tweens()
-	_update_progress_bar(1.0)
+	_show_ignore_overlay()
 	microgame_result = Result.SUCCESS
 	InputRouter.consume_first_input()
-	resolved.emit(Outcome.SUCCESS)
+	resolved.emit(true)
 	update_debug_state()
 
 
@@ -274,10 +274,21 @@ func _resolve_fail() -> void:
 	_play_safe(sfx_fail)
 	_clear_expert_jitter()
 	_clear_idle_tweens()
+	_hide_ignore_overlay()
 	microgame_result = Result.FAILURE
 	InputRouter.consume_first_input()
-	resolved.emit(Outcome.FAIL)
+	resolved.emit(false)
 	update_debug_state()
+
+
+func _show_ignore_overlay() -> void:
+	if _expert_overlay and _expert_overlay.has_method("show_ignore_overlay"):
+		_expert_overlay.call("show_ignore_overlay", true)
+
+
+func _hide_ignore_overlay() -> void:
+	if _expert_overlay and _expert_overlay.has_method("hide_ignore_overlay"):
+		_expert_overlay.call("hide_ignore_overlay")
 
 
 func _create_idle_tweens() -> void:
@@ -321,8 +332,7 @@ func _clear_expert_jitter() -> void:
 func _apply_style() -> void:
 	if background:
 		background.color = Style.BG_DARK
-	if expert_text:
-		expert_text.modulate = Style.TEXT_NOISE
+	# Don't modulate expert_text - let scene color settings control it
 	if expert_bubble:
 		expert_bubble.self_modulate = Style.BUBBLE_BG
 
@@ -355,15 +365,49 @@ func _assign_texture(sprite: Sprite2D, path: String) -> void:
 
 func _stop_all_audio() -> void:
 	for player in [sfx_talk, sfx_cutoff, sfx_success, sfx_fail]:
-		if player and player.playing:
+		if player and player.stream != null and player.playing:
 			player.stop()
 
 
 func _play_safe(player: AudioStreamPlayer) -> void:
-	if not presentation_enabled or not player:
+	if not presentation_enabled or not player or player.stream == null:
 		return
 	player.stop()
 	player.play()
+
+
+func _setup_audio() -> void:
+	if not presentation_enabled:
+		_clear_audio_streams()
+		return
+	if sfx_talk:
+		sfx_talk.stream = _safe_load_audio(
+			"res://microgames/mg01_ignore_the_expert/assets/audio/expert_talk.wav"
+		)
+	if sfx_cutoff:
+		sfx_cutoff.stream = _safe_load_audio(
+			"res://microgames/mg01_ignore_the_expert/assets/audio/cutoff.wav"
+		)
+	if sfx_success:
+		sfx_success.stream = _safe_load_audio(
+			"res://microgames/mg01_ignore_the_expert/assets/audio/success.wav"
+		)
+	if sfx_fail:
+		sfx_fail.stream = _safe_load_audio(
+			"res://microgames/mg01_ignore_the_expert/assets/audio/fail.wav"
+		)
+
+
+func _clear_audio_streams() -> void:
+	for player in [sfx_talk, sfx_cutoff, sfx_success, sfx_fail]:
+		if player:
+			player.stream = null
+
+
+func _safe_load_audio(path: String) -> AudioStream:
+	if ResourceLoader.exists(path):
+		return ResourceLoader.load(path) as AudioStream
+	return null
 
 
 func update_debug_state() -> void:

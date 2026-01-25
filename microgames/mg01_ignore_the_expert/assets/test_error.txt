@@ -1,0 +1,13 @@
+WARNING: RunManager: Cannot start run, already running
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] start_run (res://autoload/run_manager.gd:49)
+       [1] start_run (res://scenes/GameRoot.gd:81)
+SCRIPT ERROR: Invalid call. Nonexistent function 'strip' in base 'String'.
+   at: test_no_unexpected_indent_in_class_body (res://tests/unit/test_no_unexpected_indent.gd:19)
+   GDScript backtrace (most recent call first):
+       [0] test_no_unexpected_indent_in_class_body (res://tests/unit/test_no_unexpected_indent.gd:19)
+       [1] _run_test (res://addons/gut/gut.gd:584)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+ERROR: BUG: Unreferenced static string to 0: Variant
+   at: unref (core/string/string_name.cpp:116)

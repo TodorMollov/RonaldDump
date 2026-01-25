@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7l0s4gqh2xno"]
 
 [ext_resource type="Script" path="res://scenes/MainMenu.gd" id="1_t7a0f"]
-[ext_resource type="FontFile" uid="uid://your_font_uid" path="res://addons/gut/fonts/LobsterTwo-Bold.ttf" id="2_font"]
+[ext_resource type="FontFile" path="res://addons/gut/fonts/LobsterTwo-Bold.ttf" id="2_font"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3

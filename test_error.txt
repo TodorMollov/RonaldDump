@@ -1,161 +1,205 @@
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/ronald.png.
-   at: _load (core/io/resource_loader.cpp:343)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:332)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_presentation_disabled_no_idle_tweens (res://tests/unit/test_mg01_presentation_gating.gd:23)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/expert.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] before_each (res://tests/unit/microgames/test_ignore_the_expert.gd:10)
+       [1] _run_test (res://addons/gut/gut.gd:580)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+       [3] test_scripts (res://addons/gut/gut.gd:990)
+       [4] run_tests (res://addons/gut/gui/GutRunner.gd:198)
+       [5] _run_tests (res://addons/gut/cli/gut_cli.gd:221)
+       [6] main (res://addons/gut/cli/gut_cli.gd:267)
+       [7] _init (res://addons/gut/gut_cmdln.gd:30)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:333)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_presentation_disabled_no_idle_tweens (res://tests/unit/test_mg01_presentation_gating.gd:23)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/ronald.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] before_each (res://tests/unit/microgames/test_ignore_the_expert.gd:10)
+       [1] _run_test (res://addons/gut/gut.gd:580)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:332)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_presentation_enabled_creates_idle_tweens (res://tests/unit/test_mg01_presentation_gating.gd:35)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-       [6] _run_test (res://addons/gut/gut.gd:608)
-       [7] after_each (res://tests/unit/test_mg01_presentation_gating.gd:17)
-       [8] _end_wait (res://addons/gut/awaiter.gd:60)
-       [9] _physics_process (res://addons/gut/awaiter.gd:32)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/expert.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] before_each (res://tests/unit/microgames/test_ignore_the_expert.gd:10)
+       [1] _run_test (res://addons/gut/gut.gd:580)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+       [3] _run_test (res://addons/gut/gut.gd:608)
+       [4] after_each (res://tests/unit/microgames/test_ignore_the_expert.gd:19)
+       [5] _end_wait (res://addons/gut/awaiter.gd:60)
+       [6] _physics_process (res://addons/gut/awaiter.gd:32)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:333)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_presentation_enabled_creates_idle_tweens (res://tests/unit/test_mg01_presentation_gating.gd:35)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-       [6] _run_test (res://addons/gut/gut.gd:608)
-       [7] after_each (res://tests/unit/test_mg01_presentation_gating.gd:17)
-       [8] _end_wait (res://addons/gut/awaiter.gd:60)
-       [9] _physics_process (res://addons/gut/awaiter.gd:32)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/ronald.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] before_each (res://tests/unit/microgames/test_ignore_the_expert.gd:10)
+       [1] _run_test (res://addons/gut/gut.gd:580)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:332)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_presentation_disabled_no_expert_jitter (res://tests/unit/test_mg01_presentation_gating.gd:47)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/expert.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] before_each (res://tests/unit/microgames/test_ignore_the_expert.gd:10)
+       [1] _run_test (res://addons/gut/gut.gd:580)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+       [3] _run_test (res://addons/gut/gut.gd:608)
+       [4] after_each (res://tests/unit/microgames/test_ignore_the_expert.gd:19)
+       [5] _end_wait (res://addons/gut/awaiter.gd:60)
+       [6] _physics_process (res://addons/gut/awaiter.gd:32)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:333)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_presentation_disabled_no_expert_jitter (res://tests/unit/test_mg01_presentation_gating.gd:47)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/ronald.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] before_each (res://tests/unit/microgames/test_ignore_the_expert.gd:10)
+       [1] _run_test (res://addons/gut/gut.gd:580)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:332)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_presentation_disabled_no_expert_text_update (res://tests/unit/test_mg01_presentation_gating.gd:62)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-       [6] _run_test (res://addons/gut/gut.gd:608)
-       [7] after_each (res://tests/unit/test_mg01_presentation_gating.gd:17)
-       [8] _end_wait (res://addons/gut/awaiter.gd:60)
-       [9] _physics_process (res://addons/gut/awaiter.gd:32)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/expert.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] before_each (res://tests/unit/microgames/test_ignore_the_expert.gd:10)
+       [1] _run_test (res://addons/gut/gut.gd:580)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+       [3] _run_test (res://addons/gut/gut.gd:608)
+       [4] after_each (res://tests/unit/microgames/test_ignore_the_expert.gd:19)
+       [5] _end_wait (res://addons/gut/awaiter.gd:60)
+       [6] _physics_process (res://addons/gut/awaiter.gd:32)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:333)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_presentation_disabled_no_expert_text_update (res://tests/unit/test_mg01_presentation_gating.gd:62)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-       [6] _run_test (res://addons/gut/gut.gd:608)
-       [7] after_each (res://tests/unit/test_mg01_presentation_gating.gd:17)
-       [8] _end_wait (res://addons/gut/awaiter.gd:60)
-       [9] _physics_process (res://addons/gut/awaiter.gd:32)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/ronald.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] test_mg01_presentation_disabled_no_idle_tweens (res://tests/unit/test_mg01_presentation_gating.gd:22)
+       [1] _run_test (res://addons/gut/gut.gd:584)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+       [3] _run_test (res://addons/gut/gut.gd:608)
+       [4] test_run_smoke_flow (res://tests/unit/test_integration_framework_smoke.gd:64)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:332)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_tweens_cleanup_on_resolve (res://tests/unit/test_mg01_presentation_gating.gd:78)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-       [6] _run_test (res://addons/gut/gut.gd:608)
-       [7] after_each (res://tests/unit/test_mg01_presentation_gating.gd:17)
-       [8] _end_wait (res://addons/gut/awaiter.gd:60)
-       [9] _physics_process (res://addons/gut/awaiter.gd:32)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/expert.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] test_mg01_presentation_enabled_creates_idle_tweens (res://tests/unit/test_mg01_presentation_gating.gd:34)
+       [1] _run_test (res://addons/gut/gut.gd:584)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:333)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] test_mg01_tweens_cleanup_on_resolve (res://tests/unit/test_mg01_presentation_gating.gd:78)
-       [4] _run_test (res://addons/gut/gut.gd:584)
-       [5] _test_the_scripts (res://addons/gut/gut.gd:777)
-       [6] _run_test (res://addons/gut/gut.gd:608)
-       [7] after_each (res://tests/unit/test_mg01_presentation_gating.gd:17)
-       [8] _end_wait (res://addons/gut/awaiter.gd:60)
-       [9] _physics_process (res://addons/gut/awaiter.gd:32)
+       [0] test_mg01_presentation_disabled_no_expert_jitter (res://tests/unit/test_mg01_presentation_gating.gd:46)
+       [1] _run_test (res://addons/gut/gut.gd:584)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+       [3] _run_test (res://addons/gut/gut.gd:608)
+       [4] after_each (res://tests/unit/test_mg01_presentation_gating.gd:17)
+       [5] _end_wait (res://addons/gut/awaiter.gd:60)
+       [6] _physics_process (res://addons/gut/awaiter.gd:32)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] test_mg01_presentation_disabled_no_expert_text_update (res://tests/unit/test_mg01_presentation_gating.gd:61)
+       [1] _run_test (res://addons/gut/gut.gd:584)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] test_mg01_tweens_cleanup_on_resolve (res://tests/unit/test_mg01_presentation_gating.gd:77)
+       [1] _run_test (res://addons/gut/gut.gd:584)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)
+       [3] _run_test (res://addons/gut/gut.gd:608)
+       [4] after_each (res://tests/unit/test_mg01_presentation_gating.gd:17)
+       [5] _end_wait (res://addons/gut/awaiter.gd:60)
+       [6] _physics_process (res://addons/gut/awaiter.gd:32)
 WARNING: RunManager: Cannot start run, already running
    at: push_warning (core/variant/variant_utility.cpp:1034)
    GDScript backtrace (most recent call first):
        [0] start_run (res://autoload/run_manager.gd:49)
        [1] start_run (res://scenes/GameRoot.gd:81)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/ronald.png.
-   at: _load (core/io/resource_loader.cpp:343)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:332)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] _start_next_microgame (res://autoload/run_manager.gd:127)
-       [4] _finish_microgame (res://autoload/run_manager.gd:252)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/expert.png.
-   at: _load (core/io/resource_loader.cpp:343)
-   GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:333)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] _start_next_microgame (res://autoload/run_manager.gd:127)
-       [4] _finish_microgame (res://autoload/run_manager.gd:252)
-WARNING: The variable "seed" has the same name as a built-in function.
-   at: GDScript::reload (res://microgames/mg03_wall_builder/WallBuilder.gd:126)
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] start_run (res://autoload/run_manager.gd:76)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
        [0] _start_next_microgame (res://autoload/run_manager.gd:115)
        [1] _finish_microgame (res://autoload/run_manager.gd:252)
-WARNING: Integer division. Decimal part will be discarded.
-   at: GDScript::reload (res://microgames/mg03_wall_builder/WallBuilder.gd:157)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
        [0] _start_next_microgame (res://autoload/run_manager.gd:115)
        [1] _finish_microgame (res://autoload/run_manager.gd:252)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/ronald.png.
-   at: _load (core/io/resource_loader.cpp:343)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:332)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] _start_next_microgame (res://autoload/run_manager.gd:127)
-       [4] _finish_microgame (res://autoload/run_manager.gd:252)
-ERROR: Failed loading resource: res://microgames/mg01_ignore_the_expert/assets/expert.png.
-   at: _load (core/io/resource_loader.cpp:343)
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
    GDScript backtrace (most recent call first):
-       [0] _assign_texture (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:338)
-       [1] _apply_assets (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:333)
-       [2] _ready (res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd:57)
-       [3] _start_next_microgame (res://autoload/run_manager.gd:127)
-       [4] _finish_microgame (res://autoload/run_manager.gd:252)
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+WARNING: res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn:4 - ext_resource, invalid UID: uid://c2do8t2b4hy4s - using text path instead: res://microgames/mg01_ignore_the_expert/Expert.gd
+   at: load (scene/resources/resource_format_text.cpp:444)
+   GDScript backtrace (most recent call first):
+       [0] _start_next_microgame (res://autoload/run_manager.gd:115)
+       [1] _finish_microgame (res://autoload/run_manager.gd:252)
+SCRIPT ERROR: Invalid call. Nonexistent function 'strip' in base 'String'.
+   at: test_no_unexpected_indent_in_class_body (res://tests/unit/test_no_unexpected_indent.gd:19)
+   GDScript backtrace (most recent call first):
+       [0] test_no_unexpected_indent_in_class_body (res://tests/unit/test_no_unexpected_indent.gd:19)
+       [1] _run_test (res://addons/gut/gut.gd:584)
+       [2] _test_the_scripts (res://addons/gut/gut.gd:777)

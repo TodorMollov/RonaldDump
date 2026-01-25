@@ -1,5 +1,4 @@
 extends Resource
-class_name MicrogameRegistryResource
 ## Deprecated resource registry (use autoload/MicrogameRegistry instead)
 
 class MicrogameEntry:

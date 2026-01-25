@@ -1,3 +1,2 @@
 res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.gd
-res://scenes/MainMenu.tscn
-res://microgames/mg01_ignore_the_expert/MicrogameIgnoreTheExpert.tscn
+res://microgames/mg01_ignore_the_expert/Expert.gd
